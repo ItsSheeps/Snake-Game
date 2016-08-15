@@ -45,14 +45,14 @@
 		
 		var input = {		// Input Engine
 		
-			left: 		false,
-			up: 			false,
-			right: 		false,
-			down: 		false,
-			w:				false,
-			a:				false,
-			s:				false,
-			d:				false,
+			left: 	false,
+			up: 	false,
+			right: 	false,
+			down: 	false,
+			w:	false,
+			a:	false,
+			s:	false,
+			d:	false,
 			
 			init: function(){
 			
@@ -268,19 +268,13 @@
 			this.draw = function(){
 			
 				
-				grid.drawTile(this.x,this.y,this.color);		// Draw snake's head.
+				grid.drawTile(this.x,this.y,this.color);	// Draw snake's head.
 			
 				for(var i=0; i<this.length; i++){		//Draw snake's body.
 				
 					grid.drawTile(this.positionsX[i],this.positionsY[i],this.color);
 					
 				}
-					
-				/*if(game.lost && this.loseX !== null){
-					
-					grid.drawTile(this.loseX,this.loseY,"green");
-					
-				}*/
 				
 				
 			}
@@ -352,7 +346,7 @@
 		var canvas = document.getElementById("canvas");
 		var ctx = canvas.getContext("2d");
 		//
-		// Graphics Engine. Purpose is to draw to screen as if the bottom left of the screen is (0,0).
+		// Graphics Object. Purpose is to draw to screen as if the bottom left of the screen is (0,0).
 		//
 		var graphics = {
 			
