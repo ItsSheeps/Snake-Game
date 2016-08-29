@@ -1,458 +1,294 @@
 <!DOCTYPE html>
 
 <html>
+
 	<head>
-	
-		<meta charset="utf-8"/>
-		<title>Snake Game</title>
+		
+		
 		
 	</head>
+
 	
 	
-	<body bgcolor = "white">
-	
-		<center>
+	<body>
 		
-			<canvas id = "canvas" width="800" height="600"> Your browser does not support the canvas element. </canvas>
-			
+		<center>
+			<canvas id = "myCanvas" width="480" height="360">
+				Your broswer does not support the canvas
+			</canvas>
 		</center>
 		
 		
 		
 		<script>
+			
+			var ctx, canvas;
 		
-		window.onload = function(){
+			window.onload = function(){
 			
-			input.init();
-			snake = new Snake(10,14,"#66ff33");
-			Food.prototype.instances.push(new Food(29,14,"red"));
+				canvas = document.getElementById("myCanvas");
+				ctx = canvas.getContext("2d");
+				
+				ctx.fillRect(0,0,canvas.width,canvas.height);
 			
-			requestAnimationFrame(frame);	// Initialize game loop.
-		}
-		
-		var game = {
-			state: 1,
-			difficulity: 3,
+			}
 			
-			lose: function(){
 			
-				grid.drawTile(snake.loseX,snake.loseY,"green");
-				this.state = 0;
-				alert("Length: " + snake.length + " Score: " + snake.length/this.difficulity);
+			
+			var poop = 5;
+			
+			var myFunction = function(arg1,arg2)
+			{
+			
+				return arg1 + arg2;
+			
+			}
+			
+			var foo = myFunction(10,20);
+			
+			
+			
+			if(true){
+			
+			} else {
+			
+			}
+			// this is a single line comment
+			/*
+				this is a multiline comment
+			*/
+			
+			//condition ? if true do this : if false do this;
+			
+			var bar = function(number){
+			
+				/*if(number === 1){
+				
+					return "hi";
+				
+				} else {
+				
+					return "bye";
+				
+				}*/
+				
+				return number === 1 ? "hi" : "bye";
+				
+			
+			}
+			
+			console.log(bar(1));
+			
+			
+			
+			
+			
+			function banana(){
+				
+				console.log("im a banana");
 				
 			}
-		}
-		
-		var input = {		// Input Engine
-		
-			left: 	false,
-			up: 	false,
-			right: 	false,
-			down: 	false,
-			w:	false,
-			a:	false,
-			s:	false,
-			d:	false,
 			
-			init: function(){
 			
-				document.addEventListener("keydown",function(event){
-					input.checkKey(event,true);
-				});
+			
+			function Poodle(nose,barkSound,color){
+			
+				this.nose = nose;
+				this.barkSound = barkSound;
+				this.color = color;
 				
-				document.addEventListener("keyup",function(event){
-					input.checkKey(event,false);
-				});
+				this.bark = function(){
 				
-			},
+					console.log(this.barkSound);
+				
+				}
 			
-			checkKey: function(event,bool){
+			}
 			
-				switch(event.keyCode){
-					case 37:
-						this.left = bool;
-					break;
+			var joesPoodle = new Poodle("wet","woof!","white");
+			var mattsPoodle = new Poodle("dry","bark","black");
+			
+			joesPoodle.bark();
+			
+			
+			
+			
+			var joesPoodle = {
+			
+				nose: "wet",
+				barkSound: "woof!",
+				color: "white",
+				
+				bark: function(){
 					
-					case 38:
-						this.up = bool;
-					break;
+					console.log(this.barkSound);
 					
-					case 39:
-						this.right = bool;
-					break;
+				}
+			
+			
+			}
+			
+			var mattsPoodle = {
+				
+				nose: "wet",
+				barkSound: "woof!",
+				color: "white",
+				
+				bark: function(){
 					
-					case 40:
-						this.down = bool;
-					break;
-					
-					case 87:
-						this.w = bool;
-					break;
-					
-					case 65:
-						this.a = bool;
-					break;
-					
-					case 83:
-						this.s = bool;
-					break;
-					
-					case 68:
-						this.d = bool;
-					break;
+					console.log(this.barkSound);
 					
 				}
 				
 			}
 			
-		}
-		
-		
-		var grid = {
-		
-			tileSize: 	20,
-			width: 		40,
-			height: 	30,
-			color: "#363434",
-			
-			draw: function(){
-				
-				//
-				// Draw Columns
-				//
-				for(var x=0; x<this.width+1; x++){
-				
-					graphics.drawSegment(
-					x*this.tileSize,0,									// Point 1
-					x*this.tileSize,this.height*this.tileSize,	// Point 2
-					this.color);
-					
-				}
-				
-				//
-				// Draw Rows
-				//
-				for(var y=0; y<this.height+1; y++){
-				
-					graphics.drawSegment(
-					0,y*this.tileSize,									// Point 1
-					this.width*this.tileSize,y*this.tileSize,		// Point 2
-					this.color);
-					
-				}
-				
-			},
-			
-			//
-			// Function to fill in a tile with a specific color.
-			//
-			drawTile: function(x,y,color){
-				
-				graphics.fillRect(x*this.tileSize+1,y*this.tileSize+1,this.tileSize-2,this.tileSize-2,color);
-				
-			}
 			
 			
-		}
-		
-		
-		//
-		// Player
-		//
-		var snake;
-		function Snake(x,y,color){
 			
-			this.x = x;
-			this.y = y;
-			this.color = color;
-			this.length = 0;		// Length does not include snake's head.
-			this.positionsX = [];
-			this.positionsY = [];
-			this.requestedDirection = null;
-			this.direction = null;
-			this.score = 0;
-			this.loseX = null;
-			this.loseY = null;
 			
-			this.keyInputs = function(){
-				
-				if((input.left || input.a) && this.direction !== "right"){
-				
-					this.requestedDirection = "left";
-					return;
-					
-				} else if((input.right || input.d) && this.direction !== "left"){
-				
-					this.requestedDirection = "right";
-					return;
-					
-				} else if((input.up || input.w) && this.direction !== "down"){
-				
-					this.requestedDirection = "up";
-					return;
-					
-				} else if ((input.down || input.s) && this.direction !== "up"){
-				
-					this.requestedDirection = "down";
-					return;
-					
-				}
-				
-			}
 			
-			this.update = function(){
-				
-				this.positionsX.push(this.x);						// Update snake's body's positions before its head's positions so that the body positions are behind by 1 step (Read next comment).
-				this.positionsY.push(this.y);						// Remember that the snake's body's positions do not include it's head!
-				
-				if(this.positionsX.length > this.length){
-					this.positionsX.splice(0,1);
-					this.positionsY.splice(0,1);
-				}
-				
-				this.direction = this.requestedDirection;
-				
-				switch(this.direction){
-					case "left":
-						this.x--;
-					break;
-					
-					case "right":
-						this.x++;
-					break;
-					
-					case "up":
-						this.y++;
-					break;
-					
-					case "down":
-						this.y--;
-					break;
-				}
-				
-				if(this.hitEdge()){
-				
-					this.loseX = this.positionsX[this.length-1];
-					this.loseY = this.positionsY[this.length-1];
-					game.lose();
-				}
-				
-				var bodyCheck = this.hitBody();
-				if(bodyCheck.hit){
-					
-					grid.drawTile(bodyCheck.x,bodyCheck.y,"blue")
-					
-					this.loseX = bodyCheck.posX;
-					this.loseY = bodyCheck.posY;
-					game.lose();
-				}
-				
-				
-				for(var i=0; i<Food.prototype.instances.length; i++){
-				
-					if(this.x === Food.prototype.instances[i].x && this.y === Food.prototype.instances[i].y){
-					
-						this.length+= game.difficulity;
-						Food.prototype.instances[i].relocate();
-						break;
-						
-					}
-					
-				}
-				
-				
-				
-				
-			}
 			
-			this.draw = function(){
 			
-				
-				grid.drawTile(this.x,this.y,this.color);	// Draw snake's head.
-			
-				for(var i=0; i<this.length; i++){		//Draw snake's body.
-				
-					grid.drawTile(this.positionsX[i],this.positionsY[i],this.color);
-					
-				}
-				
-				
-			}
-			
-			this.hitEdge = function(){
-			
-				return this.x < 0 || this.x > grid.width-1 || this.y < 0 || this.y > grid.height-1;
+			/*
+			function Calculator(){
 			
 			}
 			
-			this.hitBody = function(){
+			var calculator = new Calculator();*/
 			
-				for(var i=0; i<this.length; i++){
-					if(this.x === this.positionsX[i] && this.y === this.positionsY[i]){
-					
-						return {		// If snake's head collides with body, return out of function with point of intersection
-							hit: true,
-							posX: this.positionsX[i],
-							posY: this.positionsY[i]
-						}
-						
-					}
-				}
+			
+			var calculator = {
+			
 				
-				return {			// If no collisions are found, return false
-					hit: false,
-					posX: null,
-					posY: null 
-				}
-
+				
+				
+				
+				
+			
 			}
 			
 			
-		}
-		
-		function Food(x,y,color){
-		
-			this.x = x;
-			this.y = y;
-			this.color = color;
 			
-			this.relocate = function(){		// Function to relocate a food object once it has been eaten. This way new food objects do not have to be created and deleted!
-				
-				this.x = getRan(0,grid.width-1);
-				this.y = getRan(0,grid.height-1);
-				
-			}
-		
-		}( Food.prototype.instances = [],
-		
-			Food.prototype.draw = function(){
 			
-			for(var i=0; i<this.instances.length; i++){
-				
-				grid.drawTile(this.instances[i].x,this.instances[i].y,this.instances[i].color);
-				
-			}
 			
-		});
-		
-		var getRan = function(min,max){
-		
-			return Math.floor(Math.random()*(max-min+1)+min);
 			
-		}
-		
-		
-		
-		var canvas = document.getElementById("canvas");
-		var ctx = canvas.getContext("2d");
-		//
-		// Graphics Object. Purpose is to draw to screen as if the bottom left of the screen is (0,0).
-		//
-		var graphics = {
 			
-			getY: function(y,height){	//treat bottom left as (0,0);	//give height parameter in the case of drawing a rectangle.
-				return height === undefined ? canvas.height-y : canvas.height-y-height;
-			},
 			
-			drawSegment: function(x1,y1,x2,y2,color){
-				var storedColor = ctx.strokeStyle;
-				ctx.strokeStyle = color;
-				ctx.beginPath();
-				
-				ctx.moveTo(x1,this.getY(y1));
-				ctx.lineTo(x2,this.getY(y2));
-				
-				ctx.stroke();
-				ctx.closePath();
-				ctx.strokeStyle = storedColor;
-			},
+			var multi = [ [0,1,2], [3,4,5], [6,7,8] ];
 			
-			fillRect: function(x,y,width,height,color){
-				var storedColor = ctx.fillStyle;
-				
-				ctx.fillStyle = color;
-				ctx.fillRect(x,this.getY(y,height),width,height);
-				
-				ctx.fillStyle = storedColor;
+			multi[0] // [0,1,2]
+			multi[0][0] //0
+			multi[0][1] //1
+			multi[0][2] //2
+			multi[1] // [3,4,5]
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			/*
+			
+				a	b	c	d
+				e  f   z   o
+				i  j    k   g
+			
+			
+			[ 
+				[a, b, c, d],
+				[e, f, z, o],
+				[i, j, k, g]
+			]
+			
+			*/
+			
+			
+			
+			
+			
+			var myArray = [15, "bob", true, false, function(){}];
+			
+			console.log(myArray[0]) //15
+			console.log(myArray[1]) //"bob"
+			console.log(myArray[2]) //true
+			console.log(myArray[3]) //false
+			console.log(myArray[4]) //some function
+			console.log(myArray[5]) //undefined
+			
+			myArray.length = 5;
+			
+			
+			
+			
+			for(var i=0; i < myArray.length; i++){
+			
+				console.log(	multi[i]	);
+			
 			}
 			
-		}
-		
-		//
-		// Get time in milliseconds
-		//
-		function timestamp() {
-		  return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
-		}
-		
-		var 	now,
-				last = 0,
-				dt,
-				accumulation = 0,
-				fps,
-				step = 1/16;	//update game every 1/16 seconds.
-				
-		//
-		// Game loop
-		//	
-		function frame(){
 			
-			now = timestamp();
-			dt = now - last;
-			accumulation += Math.min(1, (now-last)/1000);			//Limit accumulation time to 1 second.
-			fps = 1/(dt/1000);
 			
-			keyInputs();
 			
-		   while(accumulation>=step){
-				
-			   update(step);
-			   accumulation -= step;
-			   
-		   }
-
-		   draw(dt);
-		   last = now;
-		   
-		   requestAnimationFrame(frame);
-		}
-		
-		
-		function keyInputs(){
-		
-			snake.keyInputs();
-		
-		}
+			var poopArray = ["bob","joe", [] ];
 			
-		function update(){
+			poopArray[2].push("item")
 			
-			if(game.state === 1){
-				snake.update();
+			poopArray.push("kyle");	//pushes onto the end of the array and extends array's length by 1
+			poopArray.pop(0); 			//deletes 0th item and shifts array over
+			
+			
+			
+			var width = 10;
+			var height = 5;
+			
+			var poopArray2 = new Array(width);
+			
+			for(var i=0; i<width; i++){
+			
+				poopArray2[i] = new Array(height);
+			
 			}
-			
-		}
 		
-		function draw(){
-		
-			if(game.state === 1){
-				//
-				// Draw Background
-				//
-				graphics.fillRect(0,0,grid.width*grid.tileSize,grid.height*grid.tileSize,"black");
-				
-				grid.draw();	
-				snake.draw();
-				
-			}
+			//array[x][y] = item;
 			
-			Food.prototype.draw();
 			
-		}
-		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		</script>
 		
 		
 		
 		
 	</body>
+	
 </html>
